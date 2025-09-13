@@ -15,14 +15,18 @@ def abrir_janela_secundaria():
     entrada_idade = tk.Entry(top)
     entrada_idade.grid(row=1, column=1, padx=10, pady=10)
 
-    def enviar():
+   def enviar():
         nome = entrada_nome.get()
         idade = entrada_idade.get()
-        if idade.isdigit():
+
+        if not nome or not idade:
+            messagebox.showerror('Atenção', 'Todos os campos devem ser preenchidos!!')
+        elif idade.isdigit():
             messagebox.showinfo("Sucesso", f"Cadastro realizado!!\nNome: {nome}\nIdade: {idade}")
             top.destroy()
         else:
             messagebox.showerror("Erro", "A idade deve conter apenas números!")
+
 
     tk.Button(top, text='Enviar', command=enviar).grid(row=2, column=0, columnspan=2, pady=10)
 
@@ -52,3 +56,4 @@ botao = tk.Button(
 botao.pack(pady=20)
 
 janela.mainloop()
+
