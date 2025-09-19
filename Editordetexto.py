@@ -6,6 +6,7 @@ def novo_arquivo():
     messagebox.askyesno("Confirmar", "Você tem certeza que não quer salvar?")
     if "no": 
         command = salvar_arquivo
+    caminho = filedialog.asksaveasfilename(filetypes=[("Text files", "*.txt")])
 
 def abrir_arquivo():
     caminho = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
@@ -49,3 +50,4 @@ texto = tk.Text(janela)
 texto.pack(expand=True, fill="both")
 
 janela.mainloop()
+
