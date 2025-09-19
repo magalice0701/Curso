@@ -3,6 +3,9 @@ from tkinter import messagebox, filedialog
 
 def novo_arquivo():
     texto.delete("1.0", tk.END)
+    messagebox.askyesno("Confirmar", "Você tem certeza que não quer salvar?")
+    if "no": 
+        command = salvar_arquivo
 
 def abrir_arquivo():
     caminho = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
