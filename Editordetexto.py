@@ -2,11 +2,14 @@ import tkinter as tk
 from tkinter import messagebox, filedialog
 
 def novo_arquivo():
-    texto.delete("1.0", tk.END)
-    messagebox.askyesno("Confirmar", "Você tem certeza que não quer salvar?")
-    if "no": 
-        command = salvar_arquivo
-    caminho = filedialog.asksaveasfilename(filetypes=[("Text files", "*.txt")])
+    if texto.get('1.0', tk.END).strip() != "":
+        resposta = messagebox.askyesnocancel('Salvar', 'Você deseja salvar o arquivo antes de criar um novo?')
+        if resposta:
+            salvar_arquivo()
+        elif resposta is None:
+            return
+    texto.delete('1.0', tk.END)
+
 
 def abrir_arquivo():
     caminho = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
@@ -22,6 +25,16 @@ def salvar_arquivo():
         with open(caminho, "w") as file:
             file.write(texto.get("1.0", tk.END))
         messagebox.showinfo("Salvo", "Arquivo salvo com sucesso!")
+
+def confirmar_saida():
+    if texto.get('1.0', tk.END).strip() != "":
+        resposta = messagebox.askyesnocancel('Salvar', 'Você deseja salvar o arquivo antes de sair?')
+        if resposta:
+            salvar_arquivo()
+        elif resposta is None:
+            return False
+    return True
+
 
 janela = tk.Tk()
 janela.title("Editor Simples")
@@ -50,4 +63,6 @@ texto = tk.Text(janela)
 texto.pack(expand=True, fill="both")
 
 janela.mainloop()
+
+
 
