@@ -28,7 +28,7 @@ class MinhaJanela(tk.Tk):
         botao.pack(pady=10)
 
     def mudar_texto(self):
-        self.texto.config(text='Você clicou no botão')
+        self.texto.config(text='Você clicou no botão!')
 
 def main():
     app = MinhaJanela()
