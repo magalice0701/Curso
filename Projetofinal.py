@@ -63,7 +63,6 @@ def abrir_recarga():
         tk.Label(top, text=f"Recarga de Celular - {nome}",
                  bg="#BEFFBD", fg="gray", font=("Verdana", 16, "bold")).pack(pady=20)
 
-        # Frame para operadoras
         frame_operadoras = tk.Frame(top, bg="#BEFFBD")
         frame_operadoras.pack(pady=10)
 
@@ -86,7 +85,6 @@ def abrir_recarga():
                   bg="#6DAD6D", fg="white", width=10).pack(pady=20)
 
     def mostrar_valores_recarga(operadora):
-        # Nova janela para valores
         valores_window = tk.Toplevel(top)
         valores_window.title(f"Recarga - {operadora}")
         valores_window.geometry("300x400")
@@ -95,7 +93,6 @@ def abrir_recarga():
         tk.Label(valores_window, text=f"Valores para {operadora}",
                  bg="#BEFFBD", fg="gray", font=("Verdana", 14, "bold")).pack(pady=20)
 
-        # Botões com valores pré-definidos
         valores = [20.00, 30.00, 40.00, 50.00]
         
         for valor in valores:
@@ -110,7 +107,6 @@ def abrir_recarga():
                 command=lambda v=valor, op=operadora: realizar_recarga(v, op)
             ).pack(pady=10)
 
-        # Botão para valor personalizado
         tk.Button(
             valores_window,
                 text="Outro Valor",
@@ -127,7 +123,7 @@ def abrir_recarga():
     def abrir_valor_personalizado(operadora):
         valor_str = simpledialog.askstring("Valor Personalizado", f"Digite o valor para {operadora}:")
         
-        if valor_str is None:  # Usuário cancelou
+        if valor_str is None: 
             return
             
         try:
@@ -181,13 +177,12 @@ def abrir_pagamentos():
         tk.Label(top, text="Contas para pagar:", 
                 bg="#BEFFBD", font=("Verdana", 12, "bold")).pack(pady=10)
 
-        # Contas pré-cadastradas
         contas = [
-            {"nome": "Conta de Luz", "valor": 150.00, "vencimento": "10/12/2024"},
-            {"nome": "Internet", "valor": 99.90, "vencimento": "15/12/2024"},
-            {"nome": "Água", "valor": 80.50, "vencimento": "05/12/2024"},
-            {"nome": "Cartão de Crédito", "valor": 350.00, "vencimento": "20/12/2024"},
-            {"nome": "Aluguel", "valor": 1200.00, "vencimento": "01/12/2024"}
+            {"nome": "Conta de Luz", "valor": 150.00, "vencimento": "10/12/2025"},
+            {"nome": "Internet", "valor": 99.90, "vencimento": "15/12/2025"},
+            {"nome": "Água", "valor": 80.50, "vencimento": "05/12/2025"},
+            {"nome": "Cartão de Crédito", "valor": 350.00, "vencimento": "20/12/2025"},
+            {"nome": "Aluguel", "valor": 850.00, "vencimento": "06/12/2025"}
         ]
 
         for conta in contas:
@@ -209,7 +204,6 @@ def abrir_pagamentos():
                     command=lambda c=conta: pagar_conta(c)
             ).pack(side="right")
 
-        # Botão para pagar conta personalizada
         tk.Button(top,
                 text="Pagar Outra Conta",
                 bg="#4A8C4A",
@@ -227,7 +221,6 @@ def abrir_pagamentos():
         realizar_transacao(conta['valor'], descricao, "pagamento")
 
     def pagar_conta_personalizada():
-        # Solicitar dados da conta
         nome_conta = simpledialog.askstring("Nova Conta", "Digite o nome da conta:")
         if not nome_conta:
             return
@@ -288,13 +281,11 @@ def abrir_transferir():
         tk.Label(top, text="Transferir para:", 
                 bg="#BEFFBD", font=("Verdana", 12, "bold")).pack(pady=10)
 
-        # Bancos disponíveis
         bancos = ["Banco do Brasil", "Itaú", "Bradesco", "Santander", "Caixa", "Nubank", "Inter", "Outro Banco"]
 
         frame_bancos = tk.Frame(top, bg="#BEFFBD")
         frame_bancos.pack(pady=10)
 
-        # Primeira linha de bancos
         for i in range(4):
             banco = bancos[i]
             tk.Button(
@@ -308,7 +299,6 @@ def abrir_transferir():
                 command=lambda b=banco: transferir_para_banco(b)
             ).grid(row=0, column=i, padx=5, pady=5)
 
-        # Segunda linha de bancos
         for i in range(4, 8):
             banco = bancos[i]
             tk.Button(
@@ -326,20 +316,18 @@ def abrir_transferir():
                   bg="#6DAD6D", fg="white", width=10).pack(pady=20)
 
     def transferir_para_banco(banco):
-        # Solicitar dados da transferência
+ 
         valor_str = simpledialog.askstring("Valor da Transferência", f"Digite o valor para transferir para {banco}:")
         if not valor_str:
             return
             
         try:
             valor = float(valor_str.replace(',', '.'))
-            
-            # Solicitar conta destino
+
             conta_destino = simpledialog.askstring("Conta Destino", "Digite o número da conta destino:")
             if not conta_destino:
                 return
-                
-            # Solicitar agência (se não for banco digital)
+
             if banco not in ["Nubank", "Inter"]:
                 agencia = simpledialog.askstring("Agência", "Digite a agência destino:")
                 if not agencia:
